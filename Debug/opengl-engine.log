@@ -1,0 +1,6 @@
+﻿  main.cpp
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\parsers\3d\3dheader.h(2,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\parsers\parserheader.h(23,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(9,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\main.cpp(4,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
+  opengl-engine.vcxproj -> C:\Users\Ryan\source\repos\opengl-engine\Debug\opengl-engine.exe
