@@ -3,32 +3,25 @@ const float far_clip = 1000.0f;
 
 #include "engine/Engine.h"
 #include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 int main()
 {
 	Engine engine;
+	Scene scene("res/scene.xml");
 
-	ShaderProgram program;
-	program.addShader("res/shaders/vertex.shader", GL_VERTEX_SHADER);
-	program.addShader("res/shaders/fragment.shader", GL_FRAGMENT_SHADER);
-	program.link();
-
-	Model3D model("res/3d/square.stl");
-
-	glClearColor(0.0, 1.0, 0.0, 1.0);
-
-	program.cameraPosition = glm::vec3(0.0f, 2.0f, 5.0f);
-	float x = 0.0f;
+	ShaderProgram* mainShader = &scene.programMap["program"];
+	mainShader->cameraEulerAngles.x = -M_PI / 2;
 
 	while (!glfwWindowShouldClose(engine.getWindow()))
 	{
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		program.cameraPosition.x = sinf(x += 0.03f) * 2.0f;
+		mainShader->cameraPosition.x += mainShader->cameraPosition.x >= 2.0f ? -1.96f : 0.04f;
+		scene.draw();
 
-		model.draw(program);
-	
 		glfwSwapBuffers(engine.getWindow());
 	}
 }

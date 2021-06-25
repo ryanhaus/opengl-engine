@@ -24,9 +24,22 @@ public:
 		return translationMat * rotationMat * scaleMat;
 	}
 
-	static glm::mat4 generateViewMatrix(glm::vec3 translation)
+	static glm::mat4 generateViewMatrix(glm::vec3 translation, glm::vec3 eulerAngles)
 	{
-		return glm::lookAt(translation, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+		glm::vec3 s(sinf(eulerAngles.x), sinf(eulerAngles.y), sinf(eulerAngles.z));
+		glm::vec3 c(cosf(eulerAngles.x), cosf(eulerAngles.y), cosf(eulerAngles.z));
+
+		glm::vec3 pointVector(1.0f);
+
+		pointVector.x *= c.x;
+		pointVector.z *= s.x;
+
+		pointVector.z *= c.y;
+		pointVector.y *= s.y;
+
+		pointVector += translation;
+
+		return glm::lookAt(translation, pointVector, glm::vec3(s.z, c.z, 0));
 	}
 
 	static glm::mat4 generateProjectionMatrix(float w = 7.2f, float h = 4.8f, float fov = 70.0f, float zNear = 0.1f, float zFar = 1000.0f)

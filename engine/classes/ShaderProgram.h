@@ -4,11 +4,13 @@ class ShaderProgram
 {
 public:
 	glm::vec3 cameraPosition;
+	glm::vec3 cameraEulerAngles;
 
 	ShaderProgram()
 	{
 		id = glCreateProgram();
 		cameraPosition = glm::vec3(0.0f);
+		cameraEulerAngles = glm::vec3(0.0f);
 	}
 
 	~ShaderProgram()

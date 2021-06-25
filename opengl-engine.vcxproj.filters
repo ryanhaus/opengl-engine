@@ -50,6 +50,9 @@
     <ClInclude Include="engine\classes\MatrixGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="engine\classes\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\vertex.shader" />

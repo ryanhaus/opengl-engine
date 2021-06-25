@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene>
+  <!-- set up our shaders -->
+  <shaders>
+    <program name="program">
+      <shader type="vertex" src="res/shaders/vertex.shader" />
+      <shader type="fragment" src="res/shaders/fragment.shader" />
+    </program>
+  </shaders>
+  
+  <!-- load in our world -->
+  <world>
+    <camera shader="program" position="0.0,0.0,5.0" />
+
+    <model shader="program" src="res/3d/monkey.stl" position="8.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="6.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="4.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="2.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="0.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="-2.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="-4.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="-6.0,0.0,0.0" />
+    <model shader="program" src="res/3d/monkey.stl" position="-8.0,0.0,0.0" />
+  </world>
+</scene>

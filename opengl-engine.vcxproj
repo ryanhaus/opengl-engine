@@ -152,6 +152,7 @@
     <ClInclude Include="engine\classes\classheader.h" />
     <ClInclude Include="engine\classes\MatrixGenerator.h" />
     <ClInclude Include="engine\classes\Model3D.h" />
+    <ClInclude Include="engine\classes\Scene.h" />
     <ClInclude Include="engine\classes\ShaderProgram.h" />
     <ClInclude Include="engine\Engine.h" />
     <ClInclude Include="engine\parsers\3d\3dheader.h" />
