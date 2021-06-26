@@ -9,6 +9,9 @@
 #include "parsers/parserheader.h"
 #include "classes/classheader.h"
 
+
+#include "glCallbacks.h"
+
 class Engine
 {
 public:
@@ -24,6 +27,10 @@ public:
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CCW);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
+		glfwSetFramebufferSizeCallback(window, callback_winResize);
 	}
 
 	~Engine()
@@ -35,6 +42,16 @@ public:
 	{
 		return window;
 	}
+
+	static void start(Engine* e, Scene* s);
+	static void tick();
+	static void gl_callback(Callback callback);
 private:
 	GLFWwindow* window;
 };
+
+void callback_winResize(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+	Engine::gl_callback(Callback::WinResize);
+}

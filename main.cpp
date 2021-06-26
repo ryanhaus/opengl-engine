@@ -1,26 +1,23 @@
-const float near_clip = 0.1f;
-const float far_clip = 1000.0f;
-
 #include "engine/Engine.h"
-#include <cmath>
 #define _USE_MATH_DEFINES
+#include <cmath>
 #include <math.h>
+
+#include "gameCode/main.h"
 
 int main()
 {
 	Engine engine;
 	Scene scene("res/scene.xml");
 
-	ShaderProgram* mainShader = &scene.programMap["program"];
-	mainShader->cameraEulerAngles.x = -M_PI / 2;
+	Engine::start(&engine, &scene);
 
 	while (!glfwWindowShouldClose(engine.getWindow()))
 	{
 		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		mainShader->cameraPosition.x += mainShader->cameraPosition.x >= 2.0f ? -1.96f : 0.04f;
-		scene.draw();
+		Engine::tick();
 
 		glfwSwapBuffers(engine.getWindow());
 	}

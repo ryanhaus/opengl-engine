@@ -3,8 +3,8 @@ C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\parsers\3d\3dheade
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\parsers\parserheader.h(23,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(9,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Scene.h(66,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\main.cpp(4,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
-C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\main.cpp(15,45): warning C4305: '=': truncation from 'double' to 'T'
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\main.cpp(1,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\gameCode\main.h(14,45): warning C4305: '=': truncation from 'double' to 'T'
           with
           [
               T=float
