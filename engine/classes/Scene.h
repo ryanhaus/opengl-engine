@@ -3,12 +3,15 @@
 #include <rapidxml/rapidxml.hpp>
 #include <rapidxml/rapidxml_utils.hpp>
 #include <vector>
+#include <utility>
 #include <map>
+#include <string>
 
 class Scene
 {
 public:
 	std::map<std::string, ShaderProgram> programMap;
+	std::map<std::string, Model3D> modelMap;
 
 	Scene(const char* file)
 	{
@@ -31,7 +34,7 @@ public:
 						program.addShader(currentShaderNode->first_attribute("src")->value(), shaderMap[std::string(currentShaderNode->first_attribute("type")->value())]);
 					program.link();
 
-					programMap.insert_or_assign(std::string(currentProgramNode->first_attribute("name")->value()), program);
+					programMap[std::string(currentProgramNode->first_attribute("name")->value())] = program;
 				}
 			else if (std::string(currentNode->name()) == "world")
 				for (rapidxml::xml_node<>* currentObjectNode = currentNode->first_node(); currentObjectNode; currentObjectNode = currentObjectNode->next_sibling())
@@ -54,7 +57,11 @@ public:
 						model.translation.y = y;
 						model.translation.z = z;
 
-						std::pair<Model3D, std::string> modelPair{ model, std::string(currentObjectNode->first_attribute("shader")->value()) };
+						std::string name(currentObjectNode->first_attribute("name")->value());
+
+						modelMap[name] = model;
+
+						std::pair<std::string, std::string> modelPair{ name, std::string(currentObjectNode->first_attribute("shader")->value()) };
 						models.push_back(modelPair);
 					}
 				}
@@ -64,11 +71,11 @@ public:
 	void draw()
 	{
 		for (int i = 0; i < models.size(); i++)
-			(models[i].first).draw(programMap[models[i].second]);
+			modelMap[models[i].first].draw(programMap[models[i].second]);
 	}
 private:
 	std::map<std::string, int> shaderMap;
-	std::vector<std::pair<Model3D, std::string>> models;
+	std::vector<std::pair<std::string, std::string>> models;
 
 	void fillShaderMap()
 	{

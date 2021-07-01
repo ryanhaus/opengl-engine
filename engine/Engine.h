@@ -9,7 +9,6 @@
 #include "parsers/parserheader.h"
 #include "classes/classheader.h"
 
-
 #include "glCallbacks.h"
 
 class Engine

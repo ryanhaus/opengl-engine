@@ -7,6 +7,11 @@ public:
 	glm::vec3 scale;
 	glm::vec3 rotation;
 
+	glm::vec3 color;
+
+	Model3D()
+	{ }
+
 	Model3D(const char* file)
 	{
 		ParsedModel3D parsed;
@@ -37,6 +42,7 @@ public:
 		translation = glm::vec3(0.0f);
 		scale = glm::vec3(1.0f);
 		rotation = glm::vec3(0.0f);
+		color = glm::vec3(1.0f);
 	}
 
 	void draw(ShaderProgram program)
@@ -48,6 +54,13 @@ public:
 		glm::mat4 projMat = MatrixGenerator::generateProjectionMatrix();
 		glm::mat4 mvp = projMat * viewMat * modelMat;
 		glUniformMatrix4fv(program.getUniform("mvp"), 1, GL_FALSE, &mvp[0][0]);
+
+		modelMat = glm::transpose(glm::inverse(modelMat));
+		glUniformMatrix4fv(program.getUniform("transformationMatTI"), 1, GL_FALSE, &modelMat[0][0]);
+
+		glUniform3fv(program.getUniform("viewPos"), 1, &program.cameraPosition[0]);
+		glUniform3fv(program.getUniform("lightPos"), 1, &program.lightPosition[0]);
+		glUniform3fv(program.getUniform("objectColor"), 1, &color[0]);
 
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, vSize / (3 * sizeof(float)));

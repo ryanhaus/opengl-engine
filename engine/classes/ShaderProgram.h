@@ -6,11 +6,14 @@ public:
 	glm::vec3 cameraPosition;
 	glm::vec3 cameraEulerAngles;
 
+	glm::vec3 lightPosition;
+
 	ShaderProgram()
 	{
 		id = glCreateProgram();
 		cameraPosition = glm::vec3(0.0f);
 		cameraEulerAngles = glm::vec3(0.0f);
+		lightPosition = glm::vec3(0.0f);
 	}
 
 	~ShaderProgram()

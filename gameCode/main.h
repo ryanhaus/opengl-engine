@@ -1,6 +1,7 @@
 #pragma once
 
 ShaderProgram* mainShader;
+Model3D* monkey;
 
 Engine* engine;
 Scene* scene;
@@ -12,13 +13,14 @@ void Engine::start(Engine* e, Scene* s)
 
 	mainShader = &scene->programMap["program"];
 	mainShader->cameraEulerAngles.x = -M_PI / 2;
+	mainShader->lightPosition = glm::vec3(-8.0f, 5.0f, 7.0f);
+
+	monkey = &scene->modelMap["monkey"];
 }
 
 void Engine::tick()
 {
-	mainShader->cameraPosition.x += mainShader->cameraPosition.x >= 2.0f ? -1.96f : 0.04f;
-	mainShader->cameraEulerAngles.z += 0.01f;
-
+	monkey->rotation.y++;
 	scene->draw();
 }
 
