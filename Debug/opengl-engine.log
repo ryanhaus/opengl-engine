@@ -1,10 +1,21 @@
 ﻿  main.cpp
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\parsers\3d\3dheader.h(2,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\parsers\parserheader.h(23,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
-C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(9,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(10,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Scene.h(73,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(35,28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(55,16): warning C4244: 'initializing': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\main.cpp(1,1): warning C4103: alignment changed after including header, may be due to missing #pragma pack(pop)
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\gameCode\main.h(15,45): warning C4305: '=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\gameCode\main.h(23,53): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
