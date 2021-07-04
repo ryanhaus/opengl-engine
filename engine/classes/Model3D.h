@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Model3D
 {
@@ -45,25 +46,28 @@ public:
 		color = glm::vec3(1.0f);
 	}
 
-	void draw(ShaderProgram program, GLFWwindow* window)
+	void draw(ShaderProgram* program, Camera* cam, std::vector<Light> lights)
 	{
 		int width, height;
-		glfwGetWindowSize(window, &width, &height);
+		glfwGetWindowSize(cam->getWindow(), &width, &height);
 
-		program.use();
+		program->use();
 
 		glm::mat4 modelMat = MatrixGenerator::generateModelMatrix(translation, scale, rotation);
-		glm::mat4 viewMat = MatrixGenerator::generateViewMatrix(program.cameraPosition, program.cameraEulerAngles);
+		glm::mat4 viewMat = MatrixGenerator::generateViewMatrix(*cam);
 		glm::mat4 projMat = MatrixGenerator::generateProjectionMatrix(width, height);
 		glm::mat4 mvp = projMat * viewMat * modelMat;
-		glUniformMatrix4fv(program.getUniform("mvp"), 1, GL_FALSE, &mvp[0][0]);
+		glUniformMatrix4fv(program->getUniform("mvp"), 1, GL_FALSE, &mvp[0][0]);
 
 		modelMat = glm::transpose(glm::inverse(modelMat));
-		glUniformMatrix4fv(program.getUniform("transformationMatTI"), 1, GL_FALSE, &modelMat[0][0]);
+		glUniformMatrix4fv(program->getUniform("transformationMatTI"), 1, GL_FALSE, &modelMat[0][0]);
 
-		glUniform3fv(program.getUniform("viewPos"), 1, &program.cameraPosition[0]);
-		glUniform3fv(program.getUniform("lightPos"), 1, &program.lightPosition[0]);
-		glUniform3fv(program.getUniform("objectColor"), 1, &color[0]);
+		glUniform3fv(program->getUniform("viewPos"), 1, &cam->getPosition()[0]);
+		glUniform3fv(program->getUniform("objectColor"), 1, &color[0]);
+
+		glUniform1i(program->getUniform("lights.count"), lights.size());
+		for (int i = 0; i < lights.size(); i++)
+			lights[i].uniform(program, i);
 
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, vSize / (3 * sizeof(float)));

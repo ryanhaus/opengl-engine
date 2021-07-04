@@ -11,11 +11,10 @@ void Engine::start(Engine* e, Scene* s)
 	engine = e;
 	scene = s;
 
-	mainShader = &scene->programMap["program"];
-	mainShader->cameraEulerAngles.x = -M_PI / 2;
-	mainShader->lightPosition = glm::vec3(-8.0f, 5.0f, 7.0f);
+	scene->getCameras()[0].setWindow(engine->getWindow());
 
-	monkey = &scene->modelMap["monkey"];
+	mainShader = scene->getProgram("program");
+	monkey = scene->getModel("monkey");
 }
 
 void Engine::tick()

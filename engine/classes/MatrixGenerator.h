@@ -24,8 +24,11 @@ public:
 		return translationMat * rotationMat * scaleMat;
 	}
 
-	static glm::mat4 generateViewMatrix(glm::vec3 translation, glm::vec3 eulerAngles)
+	static glm::mat4 generateViewMatrix(Camera cam)
 	{
+		glm::vec3 translation = cam.getPosition();
+		glm::vec3 eulerAngles = radians(cam.getRotation());
+
 		glm::vec3 s(sinf(eulerAngles.x), sinf(eulerAngles.y), sinf(eulerAngles.z));
 		glm::vec3 c(cosf(eulerAngles.x), cosf(eulerAngles.y), cosf(eulerAngles.z));
 

@@ -1,0 +1,11 @@
+*.vcxproj*
+*.pdb
+*.sln
+*.obj
+*.exe
+*.dll
+*.tlog
+include/*
+lib/*
+Debug/*
+Release/*

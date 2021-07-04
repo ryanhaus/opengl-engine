@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scene>
-  <!-- set up our shaders -->
   <shaders>
     <program name="program">
       <shader type="vertex" src="res/shaders/vertex.shader" />
@@ -8,10 +7,12 @@
     </program>
   </shaders>
   
-  <!-- load in our world -->
   <world>
-    <camera shader="program" position="0.0,0.0,5.0" />
-
-    <model shader="program" name="monkey" src="res/3d/monkey.stl" position="0.0,0.0,0.0" />
+    <camera position="0.0,0.0,5.0" rotation="-90,0.0,0.0" />
+    <model shader="program" name="monkey" src="res/3d/mario.stl" position="0.0,0.0,0.0" />
+    
+    <light position="-8.0,5.0,7.0" color="0.0,0.0,1.0" intensity="1.0" />
+    <light position="12.0,5.0,7.0" color="1.0,0.0,0.0" intensity="1.0" />
+    <light position="0.0,12.0,6.0" color="0.0,1.0,0.0" intensity="0.5" />
   </world>
 </scene>

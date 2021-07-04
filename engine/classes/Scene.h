@@ -10,9 +10,6 @@
 class Scene
 {
 public:
-	std::map<std::string, ShaderProgram> programMap;
-	std::map<std::string, Model3D> modelMap;
-
 	Scene(const char* file)
 	{
 		fillShaderMap();
@@ -39,23 +36,37 @@ public:
 			else if (std::string(currentNode->name()) == "world")
 				for (rapidxml::xml_node<>* currentObjectNode = currentNode->first_node(); currentObjectNode; currentObjectNode = currentObjectNode->next_sibling())
 				{
-					ShaderProgram* modelProgram = &programMap[std::string(currentObjectNode->first_attribute("shader")->value())];
-
 					float x, y, z;
 					sscanf(currentObjectNode->first_attribute("position")->value(), "%f,%f,%f", &x, &y, &z);
 
 					if (std::string(currentObjectNode->name()) == "camera")
 					{
-						modelProgram->cameraPosition[0] = x;
-						modelProgram->cameraPosition[1] = y;
-						modelProgram->cameraPosition[2] = z;
+						float rx, ry, rz;
+						sscanf(currentObjectNode->first_attribute("rotation")->value(), "%f,%f,%f", &rx, &ry, &rz);
+
+						Camera cam;
+						cam.setPosition(glm::vec3(x, y, z));
+						cam.setRotation(glm::vec3(rx, ry, rz));
+
+						cameras.push_back(cam);
+					}
+					else if (std::string(currentObjectNode->name()) == "light")
+					{
+						float intensity, r, g, b;
+						sscanf(currentObjectNode->first_attribute("intensity")->value(), "%f", &intensity);
+						sscanf(currentObjectNode->first_attribute("color")->value(), "%f,%f,%f", &r, &g, &b);
+
+						Light light;
+						light.setPosition(glm::vec3(x, y, z));
+						light.setIntensity(intensity);
+						light.setColor(glm::vec3(r, g, b));
+
+						lights.push_back(light);
 					}
 					else if (std::string(currentObjectNode->name()) == "model")
 					{
 						Model3D model(currentObjectNode->first_attribute("src")->value());
-						model.translation.x = x;
-						model.translation.y = y;
-						model.translation.z = z;
+						model.translation = glm::vec3(x, y, z);
 
 						std::string name(currentObjectNode->first_attribute("name")->value());
 
@@ -66,16 +77,46 @@ public:
 					}
 				}
 		}
+
+		
 	}
 
 	void draw(GLFWwindow* window)
 	{
-		for (int i = 0; i < models.size(); i++)
-			modelMap[models[i].first].draw(programMap[models[i].second], window);
+		for (int i = 0; i < cameras.size(); i++)
+			for (int j = 0; j < models.size(); j++)
+				modelMap[models[j].first].draw(&programMap[models[j].second], &cameras[i], lights);
+	}
+
+	Camera* getCameras()
+	{
+		return &cameras[0];
+	}
+
+	Light* getLights()
+	{
+		return &lights[0];
+	}
+
+	ShaderProgram* getProgram(std::string name)
+	{
+		return &programMap[name];
+	}
+
+	Model3D* getModel(std::string name)
+	{
+		return &modelMap[name];
 	}
 private:
 	std::map<std::string, int> shaderMap;
 	std::vector<std::pair<std::string, std::string>> models;
+	std::map<std::string, ShaderProgram> programMap;
+	std::map<std::string, Model3D> modelMap;
+
+	std::vector<Camera> cameras;
+	std::vector<Light> lights;
+
+	unsigned int lightSsbo;
 
 	void fillShaderMap()
 	{
