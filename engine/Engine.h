@@ -9,7 +9,6 @@
 
 #include "parsers/parserheader.h"
 #include "classes/classheader.h"
-
 #include "glCallbacks.h"
 
 class Engine
@@ -18,10 +17,12 @@ public:
 	Engine()
 	{
 		glfwInit();
+		glfwWindowHint(GLFW_SAMPLES, 4);
+
 		window = glfwCreateWindow(720, 480, "Hello world", NULL, NULL);
 		glfwMakeContextCurrent(window);
 		glfwSwapInterval(1);
-		
+
 		glewInit();
 
 		glEnable(GL_CULL_FACE);
@@ -32,7 +33,8 @@ public:
 
 		glfwSetFramebufferSizeCallback(window, callback_winResize);
 
-		prevSeconds = (float)time(nullptr);
+		prevSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+		frameTime = 0;
 	}
 
 	~Engine()

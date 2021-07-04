@@ -5,8 +5,12 @@ C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(10,1): wa
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Model3D.h(57,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Model3D.h(57,65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Scene.h(73,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(34,28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(54,16): warning C4244: 'initializing': conversion from '_Rep' to 'int', possible loss of data
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(36,129): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\Engine.h(57,16): warning C4244: 'initializing': conversion from '_Rep' to 'int', possible loss of data
           with
           [
               _Rep=__int64
@@ -26,4 +30,10 @@ C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\include\rapidxml\rapidxml
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\include\rapidxml\rapidxml_utils.hpp(28): message : while compiling class template member function 'rapidxml::file<char>::file(const char *)'
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Scene.h(20): message : see reference to function template instantiation 'rapidxml::file<char>::file(const char *)' being compiled
 C:\Users\Ryan\source\repos\opengl-engine\opengl-engine\engine\classes\Scene.h(20): message : see reference to class template instantiation 'rapidxml::file<char>' being compiled
-  opengl-engine.vcxproj -> C:\Users\Ryan\source\repos\opengl-engine\Debug\opengl-engine.exe
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+  Generating code
+  2 of 704 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  opengl-engine.vcxproj -> C:\Users\Ryan\source\repos\opengl-engine\Release\opengl-engine.exe

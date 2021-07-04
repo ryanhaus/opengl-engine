@@ -42,7 +42,7 @@ public:
 		return glm::lookAt(translation, pointVector, glm::vec3(s.z, c.z, 0));
 	}
 
-	static glm::mat4 generateProjectionMatrix(float w = 7.2f, float h = 4.8f, float fov = 70.0f, float zNear = 0.1f, float zFar = 1000.0f)
+	static glm::mat4 generateProjectionMatrix(float w = 720.0f, float h = 480.0f, float fov = 70.0f, float zNear = 0.1f, float zFar = 1000.0f)
 	{
 		return glm::perspective(glm::radians(fov), w / h, zNear, zFar);
 	}

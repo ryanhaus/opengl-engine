@@ -21,7 +21,7 @@ void Engine::start(Engine* e, Scene* s)
 void Engine::tick()
 {
 	monkey->rotation.y += engine->getFrameTime() * 45.0;
-	scene->draw();
+	scene->draw(engine->getWindow());
 }
 
 void Engine::gl_callback(Callback callback)

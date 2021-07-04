@@ -68,10 +68,10 @@ public:
 		}
 	}
 
-	void draw()
+	void draw(GLFWwindow* window)
 	{
 		for (int i = 0; i < models.size(); i++)
-			modelMap[models[i].first].draw(programMap[models[i].second]);
+			modelMap[models[i].first].draw(programMap[models[i].second], window);
 	}
 private:
 	std::map<std::string, int> shaderMap;

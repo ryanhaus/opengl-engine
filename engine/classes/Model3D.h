@@ -45,13 +45,16 @@ public:
 		color = glm::vec3(1.0f);
 	}
 
-	void draw(ShaderProgram program)
+	void draw(ShaderProgram program, GLFWwindow* window)
 	{
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
+
 		program.use();
 
 		glm::mat4 modelMat = MatrixGenerator::generateModelMatrix(translation, scale, rotation);
 		glm::mat4 viewMat = MatrixGenerator::generateViewMatrix(program.cameraPosition, program.cameraEulerAngles);
-		glm::mat4 projMat = MatrixGenerator::generateProjectionMatrix();
+		glm::mat4 projMat = MatrixGenerator::generateProjectionMatrix(width, height);
 		glm::mat4 mvp = projMat * viewMat * modelMat;
 		glUniformMatrix4fv(program.getUniform("mvp"), 1, GL_FALSE, &mvp[0][0]);
 
