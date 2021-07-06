@@ -32,6 +32,7 @@ public:
 		glDepthFunc(GL_LESS);
 
 		glfwSetFramebufferSizeCallback(window, callback_winResize);
+		glfwSetCursorPosCallback(window, callback_mouseMove);
 
 		prevSeconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 		frameTime = 0;
@@ -61,7 +62,7 @@ public:
 
 	static void start(Engine* e, Scene* s);
 	static void tick();
-	static void gl_callback(Callback callback);
+	static void gl_callback(Callback callback, int* params);
 private:
 	GLFWwindow* window;
 
@@ -72,5 +73,19 @@ private:
 void callback_winResize(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
-	Engine::gl_callback(Callback::WinResize);
+
+	int* params = new int[2];
+	params[0] = width;
+	params[1] = height;
+
+	Engine::gl_callback(Callback::WinResize, params);
+}
+
+void callback_mouseMove(GLFWwindow* window, double xpos, double ypos)
+{
+	int* params = new int[2];
+	params[0] = floor(xpos);
+	params[1] = floor(ypos);
+
+	Engine::gl_callback(Callback::MouseMove, params);
 }

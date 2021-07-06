@@ -44,8 +44,6 @@ public:
 					sscanf(rs.c_str(), "%f,%f,%f", &rx, &ry, &rz);
 					sscanf(ss.c_str(), "%f,%f,%f", &sx, &sy, &sz);
 
-					printf("%s: %f %f %f, %f %f %f, %f %f %f\n", currentObjectNode->name(), x, y, z, rx, ry, rz, sx, sy, sz);
-
 					if (std::string(currentObjectNode->name()) == "camera")
 					{
 

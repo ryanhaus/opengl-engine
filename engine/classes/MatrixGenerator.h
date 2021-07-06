@@ -24,10 +24,9 @@ public:
 		return translationMat * rotationMat * scaleMat;
 	}
 
-	static glm::mat4 generateViewMatrix(Camera cam)
+	static glm::vec3 generatePointVector(glm::vec3 rotation)
 	{
-		glm::vec3 translation = cam.getPosition();
-		glm::vec3 eulerAngles = radians(cam.getRotation());
+		glm::vec3 eulerAngles = radians(rotation);
 
 		glm::vec3 s(sinf(eulerAngles.x), sinf(eulerAngles.y), sinf(eulerAngles.z));
 		glm::vec3 c(cosf(eulerAngles.x), cosf(eulerAngles.y), cosf(eulerAngles.z));
@@ -40,9 +39,17 @@ public:
 		pointVector.z *= c.y;
 		pointVector.y *= s.y;
 
+		return pointVector;
+	}
+
+	static glm::mat4 generateViewMatrix(Camera cam)
+	{
+		glm::vec3 translation = cam.getPosition();
+		glm::vec3 pointVector = generatePointVector(cam.getRotation());
+
 		pointVector += translation;
 
-		return glm::lookAt(translation, pointVector, glm::vec3(s.z, c.z, 0));
+		return glm::lookAt(translation, pointVector, glm::vec3(sinf(radians(cam.getRotation()).z), cosf(radians(cam.getRotation()).z), 0.0));
 	}
 
 	static glm::mat4 generateProjectionMatrix(float w = 720.0f, float h = 480.0f, float fov = 70.0f, float zNear = 0.1f, float zFar = 1000.0f)
