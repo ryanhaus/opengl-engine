@@ -43,7 +43,7 @@ vec3 specular(Light light)
 	vec3 normal = normalize(normalDir);
 	vec3 lightDir = normalize(light.pos - fragPos);
 	vec3 reflectDir = reflect(-lightDir, normal);
-	
+
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
 	return vec3(specStrength * spec);
 }

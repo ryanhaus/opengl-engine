@@ -36,13 +36,18 @@ public:
 			else if (std::string(currentNode->name()) == "world")
 				for (rapidxml::xml_node<>* currentObjectNode = currentNode->first_node(); currentObjectNode; currentObjectNode = currentObjectNode->next_sibling())
 				{
-					float x, y, z;
-					sscanf(currentObjectNode->first_attribute("position")->value(), "%f,%f,%f", &x, &y, &z);
+					rapidxml::xml_attribute<> *pa = currentObjectNode->first_attribute("position"), *ra = currentObjectNode->first_attribute("rotation"), *sa = currentObjectNode->first_attribute("scale");
+					std::string ps = pa != nullptr ? pa->value() : "0.0,0.0,0.0", rs = ra != nullptr ? ra->value() : "0.0,0.0,0.0", ss = sa != nullptr ? sa->value() : "1.0,1.0,1.0";
+
+					float x, y, z, rx, ry, rz, sx, sy, sz;
+					sscanf(ps.c_str(), "%f,%f,%f", &x, &y, &z);
+					sscanf(rs.c_str(), "%f,%f,%f", &rx, &ry, &rz);
+					sscanf(ss.c_str(), "%f,%f,%f", &sx, &sy, &sz);
+
+					printf("%s: %f %f %f, %f %f %f, %f %f %f\n", currentObjectNode->name(), x, y, z, rx, ry, rz, sx, sy, sz);
 
 					if (std::string(currentObjectNode->name()) == "camera")
 					{
-						float rx, ry, rz;
-						sscanf(currentObjectNode->first_attribute("rotation")->value(), "%f,%f,%f", &rx, &ry, &rz);
 
 						Camera cam;
 						cam.setPosition(glm::vec3(x, y, z));
@@ -67,6 +72,8 @@ public:
 					{
 						Model3D model(currentObjectNode->first_attribute("src")->value());
 						model.translation = glm::vec3(x, y, z);
+						model.rotation = glm::vec3(rx, ry, rz);
+						model.scale = glm::vec3(sx, sy, sz);
 
 						std::string name(currentObjectNode->first_attribute("name")->value());
 

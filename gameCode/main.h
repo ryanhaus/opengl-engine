@@ -1,7 +1,6 @@
 #pragma once
 
 ShaderProgram* mainShader;
-Model3D* monkey;
 
 Engine* engine;
 Scene* scene;
@@ -14,12 +13,13 @@ void Engine::start(Engine* e, Scene* s)
 	scene->getCameras()[0].setWindow(engine->getWindow());
 
 	mainShader = scene->getProgram("program");
-	monkey = scene->getModel("monkey");
 }
 
 void Engine::tick()
 {
-	monkey->rotation.y += engine->getFrameTime() * 45.0;
+	scene->getModel("mario1")->rotation.y -= engine->getFrameTime() * 45.0;
+	scene->getModel("mario2")->rotation.y += engine->getFrameTime() * 45.0;
+
 	scene->draw(engine->getWindow());
 }
 
