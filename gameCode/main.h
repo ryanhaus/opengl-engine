@@ -18,12 +18,15 @@ void Engine::start(Engine* e, Scene* s)
 	mainShader = scene->getProgram("program");
 
 	glfwSetInputMode(engine->getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	scene->getModel("floor")->texture = new Texture("res/textures/kanye.png");
+	scene->getModel("mario1")->texture = new Texture("res/textures/mario.png");
 }
 
 void Engine::tick()
 {
-	scene->getModel("mario1")->rotation.y -= engine->getFrameTime() * 45.0;
-	scene->getModel("mario2")->rotation.y += engine->getFrameTime() * 45.0;
+	scene->getModel("mario1")->rotation.y -= engine->getFrameTime() * 90.0;
+	scene->getModel("mario2")->rotation.y += engine->getFrameTime() * 90.0;
 
 	glm::vec3 pointVec = MatrixGenerator::generatePointVector(cam->getRotation());
 	float sens = 0.25;

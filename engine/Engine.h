@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <cstdint>
 #include <chrono>
+#include <string>
+#include <fstream>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

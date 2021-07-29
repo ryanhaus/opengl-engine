@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <boost/filesystem.hpp>
 
 class Model3D
 {
@@ -9,6 +10,7 @@ public:
 	glm::vec3 rotation;
 
 	glm::vec3 color;
+	Texture* texture;
 
 	Model3D()
 	{ }
@@ -16,7 +18,13 @@ public:
 	Model3D(const char* file)
 	{
 		ParsedModel3D parsed;
-		Parser::parseSTL(file, &parsed);
+
+		std::string fileExtension = (boost::filesystem::path(file).extension().string());
+		if (fileExtension == ".stl")
+			Parser::parseSTL(file, &parsed);
+		else if (fileExtension == ".obj")
+			Parser::parseOBJ(file, &parsed);
+
 		vSize = parsed.vSize;
 
 		glGenVertexArrays(1, &vao);
@@ -24,7 +32,7 @@ public:
 
 		glGenBuffers(1, &vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, vSize, parsed.vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, parsed.vSize, parsed.vertices, GL_STATIC_DRAW);
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
 		glEnableVertexAttribArray(0);
@@ -35,15 +43,27 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, nbo);
 		glBufferData(GL_ARRAY_BUFFER, parsed.vSize, parsed.normals, GL_STATIC_DRAW);
 
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
 		glEnableVertexAttribArray(1);
 
 		delete[] parsed.normals;
+
+		glGenBuffers(1, &tbo);
+		glBindBuffer(GL_ARRAY_BUFFER, tbo);
+		glBufferData(GL_ARRAY_BUFFER, parsed.tcSize, parsed.texCoords, GL_STATIC_DRAW);
+
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (void*)0);
+		glEnableVertexAttribArray(2);
+
+		delete[] parsed.texCoords;
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		translation = glm::vec3(0.0f);
 		scale = glm::vec3(1.0f);
 		rotation = glm::vec3(0.0f);
 		color = glm::vec3(1.0f);
+		texture = nullptr;
 	}
 
 	void draw(ShaderProgram* program, Camera* cam, std::vector<Light> lights)
@@ -69,10 +89,14 @@ public:
 		for (int i = 0; i < lights.size(); i++)
 			lights[i].uniform(program, i);
 
+		if (texture != nullptr)
+			glBindTexture(GL_TEXTURE_2D, texture->getID());
+		glUniform1i(program->getUniform("hasTexture"), texture != nullptr);
+
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, vSize / (3 * sizeof(float)));
 	}
 private:
 	unsigned int vSize;
-	unsigned int vao, vbo, nbo;
+	unsigned int vao, vbo, nbo, tbo;
 };

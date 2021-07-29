@@ -27,10 +27,15 @@ void Parser::parseSTL(const char* file, ParsedModel3D* model)
 
 	fclose(f);
 
-	model->vertices = new float[header.triangle_count * 9];
-	model->vSize = header.triangle_count * 9 * sizeof(float);
-	model->normals = new float[header.triangle_count * 9];
-	model->nSize = header.triangle_count * 9 * sizeof(float);
+	model->vSize = header.triangle_count * 9;
+	model->vertices = new float[model->vSize];
+	model->normals = new float[model->vSize];
+
+	model->tcSize = header.triangle_count * 6;
+	model->texCoords = new float[model->tcSize];
+
+	model->vSize *= sizeof(float);
+	model->tcSize *= sizeof(float);
 
 	for (unsigned int i = 0; i < header.triangle_count; i++)
 	{

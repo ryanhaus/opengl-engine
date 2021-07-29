@@ -8,15 +8,18 @@ struct Vertex3D
 struct ParsedModel3D
 {
 	float* vertices;
-	unsigned int vSize;
 	float* normals;
-	unsigned int nSize;
+	unsigned int vSize;
+
+	float* texCoords;
+	unsigned int tcSize;
 };
 
 class Parser
 {
 public:
 	static void parseSTL(const char* file, ParsedModel3D* model);
+	static void parseOBJ(const char* file, ParsedModel3D* model);
 	static int parseShaderFile(const char* file, int type);
 };
 
