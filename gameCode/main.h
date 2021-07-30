@@ -21,6 +21,7 @@ void Engine::start(Engine* e, Scene* s)
 
 	scene->getModel("floor")->texture = new Texture("res/textures/kanye.png");
 	scene->getModel("mario1")->texture = new Texture("res/textures/mario.png");
+	scene->getModel("mario2")->texture = new Texture("res/textures/texture.png");
 }
 
 void Engine::tick()

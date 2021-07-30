@@ -15,7 +15,7 @@ void main(void)
 {
 	normalDir = (transformationMatTI * vec4(normal, 0.0)).xyz;
 	fragPos = pos;
-	tCoord = texCoord;
+	tCoord = vec2(texCoord.x, 1.0 - texCoord.y);
 
 	gl_Position = mvp * vec4(pos, 1.0);
 }
