@@ -74,6 +74,10 @@ public:
 						model.scale = glm::vec3(sx, sy, sz);
 
 						std::string name(currentObjectNode->first_attribute("name")->value());
+						
+						rapidxml::xml_attribute<>* textureSource = currentObjectNode->first_attribute("texture");
+						if (textureSource != nullptr)
+							model.texture = new Texture(textureSource->value());
 
 						modelMap[name] = model;
 
