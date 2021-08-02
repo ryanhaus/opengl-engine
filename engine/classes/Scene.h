@@ -1,12 +1,5 @@
 #pragma warning(disable: 6031)
 
-#include <rapidxml/rapidxml.hpp>
-#include <rapidxml/rapidxml_utils.hpp>
-#include <vector>
-#include <utility>
-#include <map>
-#include <string>
-
 class Scene
 {
 public:
@@ -46,7 +39,6 @@ public:
 
 					if (std::string(currentObjectNode->name()) == "camera")
 					{
-
 						Camera cam;
 						cam.setPosition(glm::vec3(x, y, z));
 						cam.setRotation(glm::vec3(rx, ry, rz));

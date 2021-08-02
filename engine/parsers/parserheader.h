@@ -20,6 +20,7 @@ class Parser
 public:
 	static void parseSTL(const char* file, ParsedModel3D* model);
 	static void parseOBJ(const char* file, ParsedModel3D* model);
+	static void parseDAE(const char* file, ParsedModel3D* model);
 	static int parseShaderFile(const char* file, int type);
 };
 

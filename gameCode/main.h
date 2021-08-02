@@ -26,7 +26,7 @@ void Engine::tick()
 	scene->getModel("mario2")->rotation.y += engine->getFrameTime() * 90.0;
 
 	glm::vec3 pointVec = MatrixGenerator::generatePointVector(cam->getRotation());
-	float sens = 0.25;
+	float sens = 0.1f;
 	if (glfwGetKey(engine->getWindow(), GLFW_KEY_W) == GLFW_PRESS)
 		cam->setPosition(cam->getPosition() + pointVec * glm::vec3(sens));
 	if (glfwGetKey(engine->getWindow(), GLFW_KEY_S) == GLFW_PRESS)

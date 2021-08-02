@@ -5,9 +5,14 @@
 #include <chrono>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <utility>
+#include <map>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <rapidxml/rapidxml.hpp>
+#include <rapidxml/rapidxml_utils.hpp>
 
 #include "parsers/parserheader.h"
 #include "classes/classheader.h"
@@ -27,9 +32,9 @@ public:
 
 		glewInit();
 
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
+		//glFrontFace(GL_CCW);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 

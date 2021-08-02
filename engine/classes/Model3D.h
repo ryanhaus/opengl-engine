@@ -24,6 +24,8 @@ public:
 			Parser::parseSTL(file, &parsed);
 		else if (fileExtension == ".obj")
 			Parser::parseOBJ(file, &parsed);
+		else if (fileExtension == ".dae")
+			Parser::parseDAE(file, &parsed);
 
 		vSize = parsed.vSize;
 
@@ -95,6 +97,9 @@ public:
 
 		glBindVertexArray(vao);
 		glDrawArrays(GL_TRIANGLES, 0, vSize / (3 * sizeof(float)));
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindVertexArray(0);
 	}
 private:
 	unsigned int vSize;
