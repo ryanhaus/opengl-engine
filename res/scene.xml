@@ -10,8 +10,8 @@
   <world>
     <camera position="0.0,0.0,5.0" rotation="-90,0.0,0.0" />
     <model shader="program" name="pickleandpeanut" src="res/3d/PicklenPeanut.obj" texture="res/textures/Handle1Tex.png" />
-    <model shader="program" name="test" src="res/3d/cube.dae" position="-2.0,0.0,0.0" />
+    <model shader="program" name="test" src="res/3d/cube.dae" position="-2.0,0.0,0.0" texture="res/textures/kanye.png" />
 
-    <light position="-8.0,5.0,7.0" color="1.0,1.0,1.0" intensity="0.25" />
+    <light position="-8.0,5.0,7.0" color="1.0,1.0,1.0" intensity="1" />
   </world>
 </scene>

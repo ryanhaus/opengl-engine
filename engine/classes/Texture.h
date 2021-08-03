@@ -1,13 +1,27 @@
 #include <picopng.cpp>
 
+struct Image
+{
+	unsigned long width, height;
+	std::vector<unsigned char> data;
+};
+
 class Texture
 {
 public:
 	Texture(const char* file, GLuint filter = GL_LINEAR)
 	{
-		std::vector<unsigned char> buffer, image;
-		loadFile(buffer, file);
-		int error = decodePNG(image, width, height, buffer.empty() ? 0 : &buffer[0], (unsigned long)buffer.size());
+		Image image;
+		if (textureMap.find(std::string(file)) != textureMap.end())
+			image = textureMap[std::string(file)];
+		else
+		{
+			std::vector<unsigned char> buffer;
+			loadFile(buffer, file);
+			decodePNG(image.data, image.width, image.height, buffer.empty() ? 0 : &buffer[0], (unsigned long)buffer.size());
+
+			textureMap[std::string(file)] = image;
+		}
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -17,7 +31,7 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &image.data[0]);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -28,6 +42,9 @@ public:
 		return texture;
 	}
 private:
-	unsigned long width, height;
 	unsigned int texture;
+
+	static std::map<std::string, Image> textureMap;
 };
+
+std::map<std::string, Image> Texture::textureMap = std::map<std::string, Image>();

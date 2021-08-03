@@ -75,7 +75,7 @@ void main(void)
 	}
 
 	vec4 texColor = texture(objectTexture, tCoord);
-	vec3 oCol = mix(objectColor, texColor.xyz, texColor.w);
+	vec3 oCol = mix(objectColor, texColor.xyz * sigma(strength), texColor.w);
 
 	overallColor = mix(oCol, overallColor, sigma(strength) * .5);
 
